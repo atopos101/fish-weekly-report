@@ -1,0 +1,44 @@
+0.launch文件的使用
+      重复命名空间的设置
+1. 静态坐标变换
+      初始化节点：创建一个ROS节点。
+      创建广播器：使用tf2_ros.StaticTransformBroadcaster创建一个广播器，用于广播静态变换。
+      定义变换：创建一个TransformStamped对象来描述坐标变换。包括参考坐标系（base_link），目标坐标系（camera_link），以及它们之间的相对位置和方向。
+      设置变换参数：定义摄像头相对于基座的具体位置和方向。
+      发送变换：使用广播器发送定义好的静态变换。
+
+      头文件
+      初始化 NodeHandle
+      创建缓存buffer
+      创建监听对象 存入buffer
+      组织坐标点数据
+      转换算法
+       //新建一个坐标点，用于接收转换结果  
+        //--------------使用 try 语句或休眠，否则可能由于缓存接收延迟而导致坐标转换失败------------------------
+      输出
+       ROS 系统就已经封装好了专门的节点，使用方式如下:
+
+rosrun tf2_ros static_transform_publisher x偏移量 y偏移量 z偏移量 z偏航角度 y俯仰角度 x翻滚角度 父级坐标系 子级坐标系
+
+示例:rosrun tf2_ros static_transform_publisher 0.2 0 0.5 0 0 0 /baselink /laser
+
+2.动态坐标变换
+      订阅-广播（回调函数）-订阅
+      同上
+      
+
+3.多坐标变换
+ //   解析 son1 中的点相对于 son2 的坐标
+            geometry_msgs::TransformStamped tfs = buffer.lookupTransform("son2","son1",ros::Time(0));
+      先发son1 son2相对于world的关系
+      订阅解析
+
+4.坐标关系查看
+      rosrun tf2_tools view_frames.py
+      在当前目录会生成文件
+5.由坐标关系构建的运动关系
+      生成（launch传参）
+      两次发布坐标关系
+      订阅动态相对关系
+      有相对关系---发布运动数据（订阅者为turtle_GUI）
+      

@@ -1,0 +1,11 @@
+12.08 周报五
+1.本周完成 
+    ros相关
+         仿真
+         URDF集成rviz
+         URDF集成Gazebo
+2.理想中的下周
+    ros相关
+        仿真
+        URDF、Gazebo与Rviz综合应用
+        机器人导航
